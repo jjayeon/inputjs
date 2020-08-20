@@ -1,3 +1,3 @@
-var a = 0;
+import Input from "./lib/Input.js";
 
-console.log(a);
+const input = Input();
