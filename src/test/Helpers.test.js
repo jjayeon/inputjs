@@ -1,12 +1,10 @@
+// A big old file for testing Helpers.js with unit tests.
+// The integration test is all of index.js.
+// uses mocha.js.
+
 /* eslint-disable no-undef */
 const assert = require("assert").strict;
 const helper = require("../lib/Helpers.js");
-
-describe("testing the test", function () {
-  it("should just pass.", function () {
-    assert.ok(true);
-  });
-});
 
 describe("testing helper.initBinds()", function () {
   it("should always generate a specific object.", function () {
@@ -18,6 +16,8 @@ describe("testing helper.initBinds()", function () {
 });
 
 describe("testing helper.extract(args)", function () {
+  // helper.extract should intelligently return values
+  // depending on the arguments with which it's called.
   it('args: [str] => { mod: "None", key: str, callback: undefined }', function () {
     var expected = { mod: "None", callback: undefined };
     const tests = ["a", "b", "Tab", "Escape", "F1"];
@@ -109,16 +109,18 @@ describe("testing helper.extract(args)", function () {
 });
 
 describe("testing bind and unbind", function () {
-  var data, pass, tests;
+  var data, empty, tests;
   before(function () {
+    // "data" replicates a portion of the "data" variable in src/lib/Input.js.
     data = { binds: helper.initBinds(), upbinds: helper.initBinds() };
-    pass = () => {};
+    // an empty function.
+    empty = () => {};
     tests = [
-      { mod: "None", key: "a", callback: pass },
-      { mod: "None", key: "b", callback: pass },
-      { mod: "None", key: "c", callback: pass },
-      { mod: "Shift", key: "a", callback: pass },
-      { mod: "Shift", key: "a", callback: pass },
+      { mod: "None", key: "a", callback: empty },
+      { mod: "None", key: "b", callback: empty },
+      { mod: "None", key: "c", callback: empty },
+      { mod: "Shift", key: "a", callback: empty },
+      { mod: "Shift", key: "a", callback: empty },
     ];
   });
 

@@ -1,8 +1,11 @@
-import input from "./lib/Input.js"; // eslint-disable-line no-unused-vars
-import tests from "./lib/Tests.js"; // eslint-disable-line no-unused-vars
+import input from "./lib/Input.js";
+
+// This file is a trial run for the full library.
+// Feel free to mess around with it to make different stuff happen.
 
 const app = document.getElementById("app");
 
+// populating the div
 var space = document.createElement("p");
 space.innerHTML = "Press space to enable/disable RGB.";
 app.appendChild(space);
@@ -19,12 +22,15 @@ var multi = document.createElement("p");
 multi.innerHTML = "Press N to make new text appear.";
 app.appendChild(multi);
 
+// these ones aren't appended (yet!)
 var text1 = document.createElement("p");
 text1.innerHTML = "New text!";
 
 var text2 = document.createElement("p");
 text2.innerHTML = "Me too!";
 
+// use "active" to keep track of state.
+// this way, space can toggle whether it's active.
 var active = false;
 input.bind(" ", function () {
   if (!active) {

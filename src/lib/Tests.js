@@ -1,3 +1,9 @@
+// DO NOT USE THIS FILE!
+// This was a kind of impromptu set of unit tests before I learned Mocha.
+// Kept for archiving purposes, but not for use anymore.
+// For testing info, see src/test/Helpers.test.js or index.js.
+
+// eslint-disable-next-line
 const Tests = {
   test_pressed: function (input, active) {
     function getAllPressed() {
@@ -102,4 +108,4 @@ const Tests = {
   },
 };
 
-export default Tests;
+// export default Tests;
