@@ -7,6 +7,39 @@ const helper = {
     return out;
   },
 
+  extract: function (args) {
+    var mod = "None",
+      key,
+      callback;
+    if (args.length === 1) {
+      key = args[0];
+    } else if (args.length === 2) {
+      if (typeof args[1] === "function") {
+        key = args[0];
+        callback = args[1];
+      } else {
+        mod = args[0];
+        key = args[1];
+      }
+    } else if (args.length === 3) {
+      mod = args[0];
+      key = args[1];
+      callback = args[2];
+    }
+
+    if (
+      typeof mod === "string" &&
+      typeof key === "string" &&
+      (callback === undefined || typeof callback === "function")
+    ) {
+      return { mod, key, callback };
+    } else {
+      throw new TypeError(
+        'a "bind" function was called with invalid parameters.'
+      );
+    }
+  },
+
   mouseButton: function (index) {
     return mouseButtons[index];
   },

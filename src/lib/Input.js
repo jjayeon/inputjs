@@ -5,16 +5,20 @@ function Input() {
     pressed: {},
     x: 0,
     y: 0,
+    binds: helper.initBinds(),
+    upbinds: helper.initBinds(),
   };
 
+  // meaning "prepare document."
   helper.prepDoc(data);
 
-  //eslint-disable-next-line no-unused-vars
-  var binds = helper.initBinds();
-  //eslint-disable-next-line no-unused-vars
-  var upbinds = helper.initBinds();
-
   const input = {
+    bind: function (...args) {}, // eslint-disable-line no-unused-vars
+    unbind: function (...args) {}, // eslint-disable-line no-unused-vars
+
+    upbind: function (...args) {}, // eslint-disable-line no-unused-vars
+    unupbind: function (...args) {}, // eslint-disable-line no-unused-vars
+
     get pressed() {
       return data.pressed;
     },
@@ -25,10 +29,10 @@ function Input() {
       return data.y;
     },
     get binds() {
-      return binds;
+      return data.binds;
     },
     get upbinds() {
-      return upbinds;
+      return data.upbinds;
     },
   };
 
