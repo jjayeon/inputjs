@@ -13,7 +13,6 @@ function Input() {
   helper.prepDoc(data);
 
   const input = {
-    /* eslint-disable no-unused-vars */
     bind: function (...args) {
       const vals = helper.extract(args);
 
@@ -44,6 +43,7 @@ function Input() {
       }
     },
 
+    /* eslint-disable no-unused-vars */
     upbind: function (...args) {
       const vals = helper.extract(args);
     },
