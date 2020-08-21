@@ -22,14 +22,14 @@ function Input() {
       helper.unbindHelper(data, vals, "keydown");
     },
 
-    /* eslint-disable no-unused-vars */
     upbind: function (...args) {
       const vals = helper.extract(args);
+      helper.bindHelper(data, vals, "keyup");
     },
     unupbind: function (...args) {
       const vals = helper.extract(args);
+      helper.unbindHelper(data, vals, "keyup");
     },
-    /* eslint-enable no-unused-vars*/
 
     get pressed() {
       return data.pressed;
