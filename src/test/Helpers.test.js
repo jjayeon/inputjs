@@ -119,6 +119,8 @@ describe("testing bind and unbind", function () {
       { mod: "None", key: "a", callback: empty },
       { mod: "None", key: "b", callback: empty },
       { mod: "None", key: "c", callback: empty },
+      { mod: "None", key: "mouseleft", callback: empty },
+      { mod: "None", key: "mousemove", callback: empty },
       { mod: "Shift", key: "a", callback: empty },
       { mod: "Shift", key: "a", callback: empty },
     ];
@@ -127,11 +129,17 @@ describe("testing bind and unbind", function () {
   describe("testing helper.bindHelper()", function () {
     before(function () {
       for (const test of tests) {
-        helper.bindHelper(data, test, "keydown", true);
+        helper.bindHelper(data, test, "down", true);
       }
     });
     it('are the keys of data.bind["None"] correct?', function () {
-      assert.deepStrictEqual(Object.keys(data.binds["None"]), ["a", "b", "c"]);
+      assert.deepStrictEqual(Object.keys(data.binds["None"]), [
+        "a",
+        "b",
+        "c",
+        "mouseleft",
+        "mousemove",
+      ]);
     });
     it('are the keys of data.bind["Shift"] correct?', function () {
       assert.deepStrictEqual(Object.keys(data.binds["Shift"]), ["a"]);
@@ -144,11 +152,17 @@ describe("testing bind and unbind", function () {
   describe("testing helper.unbindHelper()", function () {
     before(function () {
       for (const test of tests) {
-        helper.unbindHelper(data, test, "keydown", true);
+        helper.unbindHelper(data, test, "down", true);
       }
     });
     it('is data.binds["None"] empty?', function () {
-      assert.deepStrictEqual(data.binds["None"], { a: [], b: [], c: [] });
+      assert.deepStrictEqual(data.binds["None"], {
+        a: [],
+        b: [],
+        c: [],
+        mouseleft: [],
+        mousemove: [],
+      });
     });
     it('is data.binds["Shift"] empty?', function () {
       assert.deepStrictEqual(data.binds["Shift"], { a: [] });

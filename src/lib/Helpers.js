@@ -106,6 +106,7 @@ module.exports = {
         }
       };
 
+      // intelligently find the event type.
       var type;
       if (vals.key === "mousemove") {
         type = "mousemove";
@@ -115,13 +116,16 @@ module.exports = {
         type = "key" + event;
       }
 
-      // check which way we're binding first.
+      // check which way we're binding.
       var binds;
       if (event === "down") {
         binds = data.binds;
       } else if (event === "up") {
         binds = data.upbinds;
       }
+      // this function will brick entirely if called with anything besides "up" or "down".
+      // which is by design.
+
       binds[vals.mod][vals.key].push(wrappedCallback);
       !dry && document.addEventListener(type, wrappedCallback);
 
@@ -135,6 +139,7 @@ module.exports = {
   // As you can imagine, a helper function for unbind.
   // Takes the same parameters as above.
   unbindHelper: function (data, vals, event, dry = false) {
+    // intelligently find the event type.
     var type;
     if (vals.key === "mousemove") {
       type = "mousemove";
@@ -144,26 +149,21 @@ module.exports = {
       type = "key" + event;
     }
 
-    // binds is a reference to the appropriate value of data.
+    // check which way we're binding.
     var binds;
     if (event === "down") {
       binds = data.binds;
     } else if (event === "up") {
       binds = data.upbinds;
     }
-    // this function will brick entirely if called with anything besides "keyup" or "keydown".
-    // which is by design.
 
     // callbacks is also just a reference.
     const callbacks = binds[vals.mod][vals.key];
-    if (!callbacks) {
-      // notice that in this line, we can't just write callbacks = [],
-      // because that would just be changing the memory that callbacks refers to.
-      binds[vals.mod][vals.key] = [];
-    } else {
+    if (callbacks) {
       // pop and remove each callback.
       while (callbacks.length > 0) {
-        !dry && document.removeEventListener(type, callbacks.pop());
+        const callback = callbacks.pop();
+        !dry && document.removeEventListener(type, callback);
       }
     }
   },
