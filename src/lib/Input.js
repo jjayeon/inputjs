@@ -9,38 +9,17 @@ function Input() {
     upbinds: helper.initBinds(),
   };
 
-  // meaning "prepare document."
-  helper.prepDoc(data);
+  helper.prepareDocument(data);
 
   const input = {
     bind: function (...args) {
       const vals = helper.extract(args);
-
-      if (vals.callback) {
-        const wrappedCallback = function (e) {
-          if (helper.validate(vals, e)) {
-            vals.callback(e);
-          }
-        };
-
-        if (!data.binds[vals.mod][vals.key]) {
-          data.binds[vals.mod][vals.key] = [];
-        }
-
-        data.binds[vals.mod][vals.key].push(wrappedCallback);
-        document.addEventListener("keydown", wrappedCallback);
-      }
+      helper.bindHelper(data, vals, "keydown");
     },
+
     unbind: function (...args) {
       const vals = helper.extract(args);
-      if (!data.binds[vals.mod][vals.key]) {
-        data.binds[vals.mod][vals.key] = [];
-      } else {
-        const callbacks = data.binds[vals.mod][vals.key];
-        for (const callback of callbacks) {
-          document.removeEventListener("keydown", callback);
-        }
-      }
+      helper.unbindHelper(data, vals, "keydown");
     },
 
     /* eslint-disable no-unused-vars */

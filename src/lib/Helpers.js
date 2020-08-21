@@ -1,10 +1,33 @@
 const helper = {
   initBinds: function () {
     var out = { None: {} };
-    for (const mod of modifiers) {
+    for (const mod of this.modifiers) {
       out[mod] = {};
     }
     return out;
+  },
+
+  prepareDocument: function (data) {
+    document.addEventListener("keydown", (e) => {
+      data.pressed[e.key] = true;
+    });
+
+    document.addEventListener("keyup", (e) => {
+      data.pressed[e.key] = false;
+    });
+
+    document.addEventListener("mousedown", (e) => {
+      data.pressed[this.mouseButtons[e.button]] = true;
+    });
+
+    document.addEventListener("mouseup", (e) => {
+      data.pressed[this.mouseButtons[e.button]] = false;
+    });
+
+    document.addEventListener("mousemove", (e) => {
+      data.x = e.x;
+      data.y = e.y;
+    });
   },
 
   extract: function (args) {
@@ -26,18 +49,7 @@ const helper = {
       key = args[1];
       callback = args[2];
     }
-
-    if (
-      typeof mod === "string" &&
-      typeof key === "string" &&
-      (callback === undefined || typeof callback === "function")
-    ) {
-      return { mod, key, callback };
-    } else {
-      throw new TypeError(
-        'a "bind" function was called with invalid parameters.'
-      );
-    }
+    return { mod, key, callback };
   },
 
   validate: function (vals, e) {
@@ -51,35 +63,44 @@ const helper = {
     );
   },
 
-  mouseButton: function (index) {
-    return mouseButtons[index];
+  bindHelper: function (data, vals, event) {
+    // initialize if list doesn't exist
+    if (!data.binds[vals.mod][vals.key]) {
+      data.binds[vals.mod][vals.key] = [];
+    }
+
+    if (vals.callback) {
+      const wrappedCallback = function (e) {
+        if (helper.validate(vals, e)) {
+          vals.callback(e);
+        }
+      };
+
+      data.binds[vals.mod][vals.key].push(wrappedCallback);
+      document.addEventListener(event, wrappedCallback);
+
+      return this;
+    } else {
+      return data.binds[vals.mod][vals.key];
+    }
   },
 
-  prepDoc: function (data) {
-    document.addEventListener("keydown", (e) => {
-      data.pressed[e.key] = true;
-    });
-
-    document.addEventListener("keyup", (e) => {
-      data.pressed[e.key] = false;
-    });
-
-    document.addEventListener("mousedown", (e) => {
-      data.pressed[this.mouseButton(e.button)] = true;
-    });
-
-    document.addEventListener("mouseup", (e) => {
-      data.pressed[this.mouseButton(e.button)] = false;
-    });
-
-    document.addEventListener("mousemove", (e) => {
-      data.x = e.x;
-      data.y = e.y;
-    });
+  unbindHelper: function (data, vals, event) {
+    const callbacks = data.binds[vals.mod][vals.key];
+    if (!callbacks) {
+      data.binds[vals.mod][vals.key] = [];
+    } else {
+      console.log(callbacks);
+      while (callbacks.length > 0) {
+        const callback = callbacks.pop();
+        document.removeEventListener(event, callback);
+      }
+      console.log(callbacks);
+    }
   },
+
+  mouseButtons: ["MouseLeft", "MouseMiddle", "MouseRight"],
+  modifiers: ["Alt", "Control", "Meta", "Shift"],
 };
-
-const mouseButtons = ["MouseLeft", "MouseMiddle", "MouseRight"];
-const modifiers = ["Alt", "Control", "Meta", "Shift"];
 
 export default helper;
