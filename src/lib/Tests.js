@@ -30,6 +30,8 @@ const Tests = {
       document.removeEventListener("mousedown", logPosition);
     }
   },
+  // eslint-disable-next-line no-unused-vars
+  test_extract: function (active) {},
 };
 
 export default Tests;

@@ -39,4 +39,4 @@ function Input() {
   return input;
 }
 
-export default Input;
+export default Input();
