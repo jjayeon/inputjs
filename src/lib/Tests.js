@@ -93,6 +93,13 @@ const Tests = {
       console.log("key is " + e.key + "(shift)");
     });
   },
+
+  test_unbind: function (input) {
+    input.unbind("a");
+    input.unbind("Shift", "A");
+    input.unbind("b");
+    input.unbind("Shift", "B");
+  },
 };
 
 export default Tests;
