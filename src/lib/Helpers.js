@@ -1,6 +1,6 @@
 const helper = {
   initBinds: function () {
-    var out = {};
+    var out = { None: {} };
     for (const mod of modifiers) {
       out[mod] = {};
     }

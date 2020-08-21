@@ -24,15 +24,23 @@ function Input() {
           }
         };
 
+        if (!data.binds[vals.mod][vals.key]) {
+          data.binds[vals.mod][vals.key] = [];
+        }
+
         data.binds[vals.mod][vals.key].push(wrappedCallback);
         document.addEventListener("keydown", wrappedCallback);
       }
     },
     unbind: function (...args) {
       const vals = helper.extract(args);
-      const callbacks = data.binds[vals.mod][vals.key];
-      for (const callback of callbacks) {
-        document.removeEventListener("keydown", callback);
+      if (!data.binds[vals.mod][vals.key]) {
+        data.binds[vals.mod][vals.key] = [];
+      } else {
+        const callbacks = data.binds[vals.mod][vals.key];
+        for (const callback of callbacks) {
+          document.removeEventListener("keydown", callback);
+        }
       }
     },
 
