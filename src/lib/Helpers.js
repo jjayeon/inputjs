@@ -52,17 +52,6 @@ const helper = {
     return { mod, key, callback };
   },
 
-  validate: function (vals, e) {
-    return (
-      vals.key === e.key &&
-      (vals.mod === "None" ||
-        (vals.mod === "Shift" && e.shiftKey) ||
-        (vals.mod === "Control" && e.ctrlKey) ||
-        (vals.mod === "Meta" && e.metaKey) ||
-        (vals.mod === "Alt" && e.altKey))
-    );
-  },
-
   bindHelper: function (data, vals, event) {
     // initialize if list doesn't exist
     if (!data.binds[vals.mod][vals.key]) {
@@ -71,7 +60,7 @@ const helper = {
 
     if (vals.callback) {
       const wrappedCallback = function (e) {
-        if (helper.validate(vals, e)) {
+        if (this.validate(vals, e)) {
           vals.callback(e);
         }
       };
@@ -83,6 +72,17 @@ const helper = {
     } else {
       return false;
     }
+  },
+
+  validate: function (vals, e) {
+    return (
+      vals.key === e.key &&
+      (vals.mod === "None" ||
+        (vals.mod === "Shift" && e.shiftKey) ||
+        (vals.mod === "Control" && e.ctrlKey) ||
+        (vals.mod === "Meta" && e.metaKey) ||
+        (vals.mod === "Alt" && e.altKey))
+    );
   },
 
   unbindHelper: function (data, vals, event) {
