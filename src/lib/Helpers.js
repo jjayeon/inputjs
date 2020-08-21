@@ -42,11 +42,12 @@ const helper = {
 
   validate: function (vals, e) {
     return (
-      ((vals.mod === "Shift" && e.shiftKey) ||
+      vals.key === e.key &&
+      (vals.mod === "None" ||
+        (vals.mod === "Shift" && e.shiftKey) ||
         (vals.mod === "Control" && e.ctrlKey) ||
         (vals.mod === "Meta" && e.metaKey) ||
-        (vals.mod === "Alt" && e.altKey)) &&
-      vals.key === e.key
+        (vals.mod === "Alt" && e.altKey))
     );
   },
 
