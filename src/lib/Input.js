@@ -14,21 +14,31 @@ function Input() {
   const input = {
     bind: function (...args) {
       const vals = helper.extract(args);
-      helper.bindHelper(data, vals, "keydown");
+      if (helper.bindHelper(data, vals, "keydown")) {
+        return this;
+      } else {
+        return this.binds[vals.mod][vals.key];
+      }
     },
 
     unbind: function (...args) {
       const vals = helper.extract(args);
       helper.unbindHelper(data, vals, "keydown");
+      return this;
     },
 
     upbind: function (...args) {
       const vals = helper.extract(args);
-      helper.bindHelper(data, vals, "keyup");
+      if (helper.bindHelper(data, vals, "keyup")) {
+        return this;
+      } else {
+        return this.binds[vals.mod][vals.key];
+      }
     },
     unupbind: function (...args) {
       const vals = helper.extract(args);
       helper.unbindHelper(data, vals, "keyup");
+      return this;
     },
 
     get pressed() {

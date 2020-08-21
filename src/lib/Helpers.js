@@ -79,9 +79,9 @@ const helper = {
       data.binds[vals.mod][vals.key].push(wrappedCallback);
       document.addEventListener(event, wrappedCallback);
 
-      return this;
+      return true;
     } else {
-      return data.binds[vals.mod][vals.key];
+      return false;
     }
   },
 
