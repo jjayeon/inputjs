@@ -7,8 +7,20 @@ const app = document.getElementById("app");
 
 // populating the div
 var space = document.createElement("p");
-space.innerHTML = "Press space to enable/disable RGB.";
+space.innerHTML = "PRESS SPACE to enable/disable input.";
 app.appendChild(space);
+
+var mousemove = document.createElement("p");
+mousemove.innerHTML = "Your current mouse position:";
+app.appendChild(mousemove);
+
+var click = document.createElement("p");
+click.innerHTML = "Clicked @";
+app.appendChild(click);
+
+var rightclick = document.createElement("p");
+rightclick.innerHTML = "Clicked @";
+app.appendChild(rightclick);
 
 var RGB = document.createElement("p");
 RGB.innerHTML = "Press RGB to change colors!";
@@ -34,6 +46,16 @@ text2.innerHTML = "Me too!";
 var active = false;
 input.bind(" ", function () {
   if (!active) {
+    input.bind("mousemove", function () {
+      mousemove.innerHTML = `Your current mouse position: ${input.x}, ${input.y}`;
+    });
+    input.bind("mouseleft", function () {
+      click.innerHTML = `Clicked @ ${input.x}, ${input.y}`;
+    });
+    input.bind("mouseright", function () {
+      rightclick.innerHTML = `Right clicked @ ${input.x}, ${input.y}`;
+    });
+
     input.bind("r", function () {
       RGB.style = "color:red;";
     });
@@ -63,6 +85,10 @@ input.bind(" ", function () {
       app.appendChild(text2);
     });
   } else {
+    input.unbind("mousemove");
+    input.unbind("mouseleft");
+    input.unbind("mouseright");
+
     input.unbind("r");
     input.unbind("g");
     input.unbind("b");

@@ -44,7 +44,7 @@ export default (function () {
     // bind(str, str, func) should do the same, bu with a modifier key.
     bind: function (...args) {
       const vals = helper.extract(args);
-      if (helper.bindHelper(data, vals, "keydown")) {
+      if (helper.bindHelper(data, vals, "down")) {
         return this;
       } else {
         return this.binds[vals.mod][vals.key];
@@ -54,14 +54,14 @@ export default (function () {
     // same as bind, but removes all binds on that key.
     unbind: function (...args) {
       const vals = helper.extract(args);
-      helper.unbindHelper(data, vals, "keydown");
+      helper.unbindHelper(data, vals, "down");
       return this;
     },
 
     // similar functions for keyups.
     upbind: function (...args) {
       const vals = helper.extract(args);
-      if (helper.bindHelper(data, vals, "keyup")) {
+      if (helper.bindHelper(data, vals, "up")) {
         return this;
       } else {
         return this.binds[vals.mod][vals.key];
@@ -69,7 +69,7 @@ export default (function () {
     },
     unupbind: function (...args) {
       const vals = helper.extract(args);
-      helper.unbindHelper(data, vals, "keyup");
+      helper.unbindHelper(data, vals, "up");
       return this;
     },
 

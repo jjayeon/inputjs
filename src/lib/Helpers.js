@@ -1,12 +1,15 @@
 // This is where I hid all the complicated stuff.
 
+const mouseButtons = ["mouseleft", "mousemiddle", "mouseright"];
+const modifiers = ["Alt", "Control", "Meta", "Shift"];
+
 // eslint-disable-next-line no-undef
 module.exports = {
   // returns something like:
   // { None: {}, Alt: {}, Control: {}, Meta: {}, Shift: {} }
   initBinds: function () {
     var out = { None: {} };
-    for (const mod of this.modifiers) {
+    for (const mod of modifiers) {
       out[mod] = {};
     }
     return out;
@@ -25,11 +28,11 @@ module.exports = {
     });
 
     document.addEventListener("mousedown", (e) => {
-      data.pressed[this.mouseButtons[e.button]] = true;
+      data.pressed[mouseButtons[e.button]] = true;
     });
 
     document.addEventListener("mouseup", (e) => {
-      data.pressed[this.mouseButtons[e.button]] = false;
+      data.pressed[mouseButtons[e.button]] = false;
     });
 
     document.addEventListener("mousemove", (e) => {
@@ -79,7 +82,9 @@ module.exports = {
     // validate will return true iff e.key === "a" and e.shiftKey === true.
     function validate(vals, e) {
       return (
-        vals.key === e.key &&
+        (vals.key === "mousemove" ||
+          vals.key === mouseButtons[e.button] ||
+          vals.key === e.key) &&
         (vals.mod === "None" ||
           (vals.mod === "Shift" && e.shiftKey) ||
           (vals.mod === "Control" && e.ctrlKey) ||
@@ -101,14 +106,25 @@ module.exports = {
         }
       };
 
-      // check which way we're binding first.
-      if (event === "keydown") {
-        data.binds[vals.mod][vals.key].push(wrappedCallback);
-        !dry && document.addEventListener(event, wrappedCallback);
-      } else if (event === "keyup") {
-        data.upbinds[vals.mod][vals.key].push(wrappedCallback);
-        !dry && document.addEventListener(event, wrappedCallback);
+      var type;
+      if (vals.key === "mousemove") {
+        type = "mousemove";
+      } else if (mouseButtons.includes(vals.key)) {
+        type = "mouse" + event;
+      } else {
+        type = "key" + event;
       }
+
+      // check which way we're binding first.
+      var binds;
+      if (event === "down") {
+        binds = data.binds;
+      } else if (event === "up") {
+        binds = data.upbinds;
+      }
+      binds[vals.mod][vals.key].push(wrappedCallback);
+      !dry && document.addEventListener(type, wrappedCallback);
+
       return true;
       // otherwise, return false, signalling to Input.js to return the callbacks.
     } else {
@@ -119,11 +135,20 @@ module.exports = {
   // As you can imagine, a helper function for unbind.
   // Takes the same parameters as above.
   unbindHelper: function (data, vals, event, dry = false) {
+    var type;
+    if (vals.key === "mousemove") {
+      type = "mousemove";
+    } else if (mouseButtons.includes(vals.key)) {
+      type = "mouse" + event;
+    } else {
+      type = "key" + event;
+    }
+
     // binds is a reference to the appropriate value of data.
     var binds;
-    if (event === "keydown") {
+    if (event === "down") {
       binds = data.binds;
-    } else if (event === "keyup") {
+    } else if (event === "up") {
       binds = data.upbinds;
     }
     // this function will brick entirely if called with anything besides "keyup" or "keydown".
@@ -138,11 +163,8 @@ module.exports = {
     } else {
       // pop and remove each callback.
       while (callbacks.length > 0) {
-        !dry && document.removeEventListener(event, callbacks.pop());
+        !dry && document.removeEventListener(type, callbacks.pop());
       }
     }
   },
-
-  mouseButtons: ["MouseLeft", "MouseMiddle", "MouseRight"],
-  modifiers: ["Alt", "Control", "Meta", "Shift"],
 };
