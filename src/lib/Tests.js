@@ -30,8 +30,37 @@ const Tests = {
       document.removeEventListener("mousedown", logPosition);
     }
   },
-  // eslint-disable-next-line no-unused-vars
-  test_extract: function (active) {},
+
+  test_extract: function (helper) {
+    const test = function () {
+      const tests = [
+        ["a"],
+        ["Shift", "a"],
+        [
+          "a",
+          () => {
+            return 0;
+          },
+        ],
+        [
+          "Shift",
+          "A",
+          () => {
+            return 0;
+          },
+        ],
+      ];
+
+      for (const test of tests) {
+        const vals = helper.extract(test);
+        console.log(
+          `${test} => { mod: ${vals.mod}, key: ${vals.key}, callback: ${vals.callback}`
+        );
+      }
+    };
+
+    test();
+  },
 };
 
 export default Tests;
