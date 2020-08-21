@@ -30,6 +30,10 @@ function Input() {
     },
     unbind: function (...args) {
       const vals = helper.extract(args);
+      const callbacks = data.binds[vals.mod][vals.key];
+      for (const callback of callbacks) {
+        document.removeEventListener("keydown", callback);
+      }
     },
 
     upbind: function (...args) {

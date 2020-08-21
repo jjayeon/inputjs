@@ -78,6 +78,21 @@ const Tests = {
       console.log(`result: ${helper.validate(test.vals, test.e)}`);
     }
   },
+
+  test_bind: function (input) {
+    input.bind("a", () => {
+      console.log("pushed a");
+    });
+    input.bind("Shift", "A", () => {
+      console.log("pushed a");
+    });
+    input.bind("b", (e) => {
+      console.log("key is " + e.key);
+    });
+    input.bind("Shift", "b", (e) => {
+      console.log("key is " + e.key + "(shift)");
+    });
+  },
 };
 
 export default Tests;
