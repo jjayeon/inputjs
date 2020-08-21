@@ -84,12 +84,12 @@ const Tests = {
       console.log("pushed a");
     });
     input.bind("Shift", "A", () => {
-      console.log("pushed a");
+      console.log("pushed A");
     });
     input.bind("b", (e) => {
       console.log("key is " + e.key);
     });
-    input.bind("Shift", "b", (e) => {
+    input.bind("Shift", "B", (e) => {
       console.log("key is " + e.key + "(shift)");
     });
   },
