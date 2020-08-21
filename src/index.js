@@ -3,4 +3,4 @@ import Tests from "./lib/Tests.js";
 
 const input = Input();
 
-Tests.test_pressed(input);
+Tests.test_pressed(input, true);

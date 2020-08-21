@@ -1,3 +1,5 @@
+import helper from "./Helpers.js";
+
 function Input() {
   var data = {
     pressed: {},
@@ -14,11 +16,11 @@ function Input() {
   });
 
   document.addEventListener("mousedown", (e) => {
-    data.pressed[e.button] = true;
+    data.pressed[helper.mouseButton(e.button)] = true;
   });
 
   document.addEventListener("mouseup", (e) => {
-    data.pressed[e.button] = false;
+    data.pressed[helper.mouseButton(e.button)] = false;
   });
 
   document.addEventListener("mousemove", (e) => {
