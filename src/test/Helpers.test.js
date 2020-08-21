@@ -107,3 +107,5 @@ describe("testing helper.extract(args)", () => {
     }
   });
 });
+
+describe("testing helper.validate(vals, e)", () => {});
