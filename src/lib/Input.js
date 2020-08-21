@@ -1,6 +1,7 @@
-function Input() {
+export default (function () {
   // eslint-disable-next-line no-undef
   const helper = require("./Helpers.js");
+
   var data = {
     pressed: {},
     x: 0,
@@ -59,6 +60,4 @@ function Input() {
   };
 
   return input;
-}
-
-export default Input();
+})();
