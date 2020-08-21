@@ -53,7 +53,7 @@ module.exports = {
     return { mod, key, callback };
   },
 
-  bindHelper: function (data, vals, event) {
+  bindHelper: function (data, vals, event, dry = false) {
     function validate(vals, e) {
       return (
         vals.key === e.key &&
@@ -77,23 +77,27 @@ module.exports = {
         }
       };
 
-      data.binds[vals.mod][vals.key].push(wrappedCallback);
-      document.addEventListener(event, wrappedCallback);
-
+      if (event === "keydown") {
+        data.binds[vals.mod][vals.key].push(wrappedCallback);
+        !dry && document.addEventListener(event, wrappedCallback);
+      } else if (event === "keyup") {
+        data.upbinds[vals.mod][vals.key].push(wrappedCallback);
+        !dry && document.addEventListener(event, wrappedCallback);
+      }
       return true;
     } else {
       return false;
     }
   },
 
-  unbindHelper: function (data, vals, event) {
+  unbindHelper: function (data, vals, event, dry = false) {
     const callbacks = data.binds[vals.mod][vals.key];
     if (!callbacks) {
       data.binds[vals.mod][vals.key] = [];
     } else {
       while (callbacks.length > 0) {
         const callback = callbacks.pop();
-        document.removeEventListener(event, callback);
+        !dry && document.removeEventListener(event, callback);
       }
     }
   },

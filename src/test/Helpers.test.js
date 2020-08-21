@@ -109,8 +109,47 @@ describe("testing helper.extract(args)", function () {
 });
 
 describe("testing helper.bindHelper(data, vals, event) and helper.unbindHelper(data, vals, event)", function () {
-  var data;
+  var data, pass, tests;
   before(function () {
-    data = helper.initBind(); // eslint-disable-line
+    data = { binds: helper.initBinds(), upbinds: helper.initBinds() };
+    pass = () => {};
+    tests = [
+      { mod: "None", key: "a", callback: pass },
+      { mod: "None", key: "b", callback: pass },
+      { mod: "None", key: "c", callback: pass },
+      { mod: "Shift", key: "a", callback: pass },
+      { mod: "Shift", key: "a", callback: pass },
+    ];
+  });
+
+  describe("testing helper.bindHelper()", function () {
+    before(function () {
+      for (const test of tests) {
+        helper.bindHelper(data, test, "keydown", true);
+      }
+    });
+    it('are the keys of data.bind["None"] correct?', function () {
+      assert.deepStrictEqual(Object.keys(data.binds["None"]), ["a", "b", "c"]);
+    });
+    it('are the keys of data.bind["Shift"] correct?', function () {
+      assert.deepStrictEqual(Object.keys(data.binds["Shift"]), ["a"]);
+    });
+    it('does data.bind["Shift"] have the right number of binds?', function () {
+      assert.strictEqual(data.binds["Shift"]["a"].length, 2);
+    });
+  });
+
+  describe("testing helper.unbindHelper()", function () {
+    before(function () {
+      for (const test of tests) {
+        helper.unbindHelper(data, test, "keydown", true);
+      }
+    });
+    it('is data.binds["None"] empty?', function () {
+      assert.deepStrictEqual(data.binds["None"], { a: [], b: [], c: [] });
+    });
+    it('is data.binds["Shift"] empty?', function () {
+      assert.deepStrictEqual(data.binds["Shift"], { a: [] });
+    });
   });
 });
