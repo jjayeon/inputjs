@@ -90,12 +90,10 @@ const helper = {
     if (!callbacks) {
       data.binds[vals.mod][vals.key] = [];
     } else {
-      console.log(callbacks);
       while (callbacks.length > 0) {
         const callback = callbacks.pop();
         document.removeEventListener(event, callback);
       }
-      console.log(callbacks);
     }
   },
 
