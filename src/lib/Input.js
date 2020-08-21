@@ -1,6 +1,6 @@
-import helper from "./Helpers.js";
-
 function Input() {
+  // eslint-disable-next-line no-undef
+  const helper = require("./Helpers.js");
   var data = {
     pressed: {},
     x: 0,

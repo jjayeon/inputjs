@@ -1,4 +1,5 @@
-const helper = {
+// eslint-disable-next-line no-undef
+module.exports = {
   initBinds: function () {
     var out = { None: {} };
     for (const mod of this.modifiers) {
@@ -53,6 +54,17 @@ const helper = {
   },
 
   bindHelper: function (data, vals, event) {
+    function validate(vals, e) {
+      return (
+        vals.key === e.key &&
+        (vals.mod === "None" ||
+          (vals.mod === "Shift" && e.shiftKey) ||
+          (vals.mod === "Control" && e.ctrlKey) ||
+          (vals.mod === "Meta" && e.metaKey) ||
+          (vals.mod === "Alt" && e.altKey))
+      );
+    }
+
     // initialize if list doesn't exist
     if (!data.binds[vals.mod][vals.key]) {
       data.binds[vals.mod][vals.key] = [];
@@ -60,7 +72,7 @@ const helper = {
 
     if (vals.callback) {
       const wrappedCallback = function (e) {
-        if (this.validate(vals, e)) {
+        if (validate(vals, e)) {
           vals.callback(e);
         }
       };
@@ -72,17 +84,6 @@ const helper = {
     } else {
       return false;
     }
-  },
-
-  validate: function (vals, e) {
-    return (
-      vals.key === e.key &&
-      (vals.mod === "None" ||
-        (vals.mod === "Shift" && e.shiftKey) ||
-        (vals.mod === "Control" && e.ctrlKey) ||
-        (vals.mod === "Meta" && e.metaKey) ||
-        (vals.mod === "Alt" && e.altKey))
-    );
   },
 
   unbindHelper: function (data, vals, event) {
@@ -100,5 +101,3 @@ const helper = {
   mouseButtons: ["MouseLeft", "MouseMiddle", "MouseRight"],
   modifiers: ["Alt", "Control", "Meta", "Shift"],
 };
-
-export default helper;
