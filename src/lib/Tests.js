@@ -61,6 +61,23 @@ const Tests = {
 
     test();
   },
+
+  test_validate: function (helper) {
+    const tests = [
+      { vals: { mod: "None", key: "a" }, e: { key: "a" } },
+      { vals: { mod: "Shift", key: "a" }, e: { shiftKey: true, key: "a" } },
+      { vals: { mod: "Control", key: "a" }, e: { ctrlKey: true, key: "a" } },
+      { vals: { mod: "Control", key: "a" }, e: { ctrlKey: true, key: "b" } },
+      { vals: { mod: "None", key: "a" }, e: { metaKey: false, key: "b" } },
+      { vals: { mod: "Shift", key: "a" }, e: { ctrlKey: true, key: "a" } },
+    ];
+
+    for (const test of tests) {
+      console.log(`vals: ${test.vals.mod} ${test.vals.key}`);
+      console.log(`e: ${Object.keys(test.e)} ${test.e.key}`);
+      console.log(`result: ${helper.validate(test.vals, test.e)}`);
+    }
+  },
 };
 
 export default Tests;
