@@ -7,28 +7,12 @@ function Input() {
     y: 0,
   };
 
-  document.addEventListener("keydown", (e) => {
-    data.pressed[e.key] = true;
-  });
+  helper.prepDoc(data);
 
-  document.addEventListener("keyup", (e) => {
-    data.pressed[e.key] = false;
-  });
-
-  document.addEventListener("mousedown", (e) => {
-    data.pressed[helper.mouseButton(e.button)] = true;
-  });
-
-  document.addEventListener("mouseup", (e) => {
-    data.pressed[helper.mouseButton(e.button)] = false;
-  });
-
-  document.addEventListener("mousemove", (e) => {
-    data.x = e.x;
-    data.y = e.y;
-  });
-
-  // var binds = {};
+  //eslint-disable-next-line no-unused-vars
+  var binds = helper.initBinds();
+  //eslint-disable-next-line no-unused-vars
+  var upbinds = helper.initBinds();
 
   const input = {
     get pressed() {
@@ -39,6 +23,12 @@ function Input() {
     },
     get y() {
       return data.y;
+    },
+    get binds() {
+      return binds;
+    },
+    get upbinds() {
+      return upbinds;
     },
   };
 
