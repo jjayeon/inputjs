@@ -108,7 +108,7 @@ describe("testing helper.extract(args)", function () {
   });
 });
 
-describe("testing helper.bindHelper(data, vals, event) and helper.unbindHelper(data, vals, event)", function () {
+describe("testing bind and unbind", function () {
   var data, pass, tests;
   before(function () {
     data = { binds: helper.initBinds(), upbinds: helper.initBinds() };
