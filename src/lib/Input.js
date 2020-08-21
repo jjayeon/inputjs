@@ -13,11 +13,32 @@ function Input() {
   helper.prepDoc(data);
 
   const input = {
-    bind: function (...args) {}, // eslint-disable-line no-unused-vars
-    unbind: function (...args) {}, // eslint-disable-line no-unused-vars
+    /* eslint-disable no-unused-vars */
+    bind: function (...args) {
+      const vals = helper.extract(args);
 
-    upbind: function (...args) {}, // eslint-disable-line no-unused-vars
-    unupbind: function (...args) {}, // eslint-disable-line no-unused-vars
+      if (vals.callback) {
+        const wrappedCallback = function (e) {
+          if (helper.validate(vals, e)) {
+            vals.callback(e);
+          }
+        };
+
+        data.binds[vals.mod][vals.key].push(wrappedCallback);
+        document.addEventListener("keydown", wrappedCallback);
+      }
+    },
+    unbind: function (...args) {
+      const vals = helper.extract(args);
+    },
+
+    upbind: function (...args) {
+      const vals = helper.extract(args);
+    },
+    unupbind: function (...args) {
+      const vals = helper.extract(args);
+    },
+    /* eslint-enable no-unused-vars*/
 
     get pressed() {
       return data.pressed;

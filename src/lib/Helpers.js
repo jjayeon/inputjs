@@ -40,6 +40,16 @@ const helper = {
     }
   },
 
+  validate: function (vals, e) {
+    return (
+      ((vals.mod === "Shift" && e.shiftKey) ||
+        (vals.mod === "Control" && e.ctrlKey) ||
+        (vals.mod === "Meta" && e.metaKey) ||
+        (vals.mod === "Alt" && e.altKey)) &&
+      vals.key === e.key
+    );
+  },
+
   mouseButton: function (index) {
     return mouseButtons[index];
   },
