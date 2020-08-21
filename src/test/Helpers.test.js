@@ -13,7 +13,7 @@ describe("testing helper.initBinds()", () => {
     const expected = { None: {}, Alt: {}, Control: {}, Meta: {}, Shift: {} };
     assert.deepStrictEqual(helper.initBinds(), expected);
     assert.deepStrictEqual(helper.initBinds(true), expected);
-    assert.deepStrictEqual(helper.initBinds("no stoP", "please"), expected);
+    assert.deepStrictEqual(helper.initBinds("no stoP", "PLEASE"), expected);
   });
 });
 
