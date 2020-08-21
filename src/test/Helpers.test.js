@@ -2,14 +2,14 @@
 const assert = require("assert").strict;
 const helper = require("../lib/Helpers.js");
 
-describe("testing the test", () => {
-  it("should just pass.", () => {
+describe("testing the test", function () {
+  it("should just pass.", function () {
     assert.ok(true);
   });
 });
 
-describe("testing helper.initBinds()", () => {
-  it("should always generate a specific object.", () => {
+describe("testing helper.initBinds()", function () {
+  it("should always generate a specific object.", function () {
     const expected = { None: {}, Alt: {}, Control: {}, Meta: {}, Shift: {} };
     assert.deepStrictEqual(helper.initBinds(), expected);
     assert.deepStrictEqual(helper.initBinds(true), expected);
@@ -17,8 +17,8 @@ describe("testing helper.initBinds()", () => {
   });
 });
 
-describe("testing helper.extract(args)", () => {
-  it('args: [str] => { mod: "None", key: str, callback: undefined }', () => {
+describe("testing helper.extract(args)", function () {
+  it('args: [str] => { mod: "None", key: str, callback: undefined }', function () {
     var expected = { mod: "None", callback: undefined };
     const tests = ["a", "b", "Tab", "Escape", "F1"];
 
@@ -27,7 +27,7 @@ describe("testing helper.extract(args)", () => {
       assert.deepStrictEqual(helper.extract([test]), expected);
     }
   });
-  it("args: [str1, str2] => { mod: str1, key: str2, callback: undefined }", () => {
+  it("args: [str1, str2] => { mod: str1, key: str2, callback: undefined }", function () {
     var expected = { callback: undefined };
     const tests = [
       ["Shift", "A"],
@@ -42,19 +42,19 @@ describe("testing helper.extract(args)", () => {
       assert.deepStrictEqual(helper.extract(test), expected);
     }
   });
-  it('args: [str, func] => { mod: "None", key: str, callback: func', () => {
+  it('args: [str, func] => { mod: "None", key: str, callback: func', function () {
     var expected = { mod: "None" };
     const tests = [
-      ["a", () => {}],
+      ["a", function () {}],
       [
         "b",
-        () => {
+        function () {
           console.log("hi");
         },
       ],
       [
         "Escape",
-        () => {
+        function () {
           throw new Error("agh what");
         },
       ],
@@ -72,28 +72,28 @@ describe("testing helper.extract(args)", () => {
       assert.deepStrictEqual(helper.extract(test), expected);
     }
   });
-  it("args: [str1, str2, func] => { mod: str1, key: str2, callback: func}", () => {
+  it("args: [str1, str2, func] => { mod: str1, key: str2, callback: func}", function () {
     var expected = {};
     const tests = [
-      ["Shift", "A", () => {}],
+      ["Shift", "A", function () {}],
       [
         "Control",
         "b",
-        () => {
+        function () {
           console.log("ctrl b");
         },
       ],
       [
         "Meta",
         "Tab",
-        () => {
+        function () {
           throw new Error("agh what");
         },
       ],
       [
         "Alt",
         "Escape",
-        () => {
+        function () {
           return 0;
         },
       ],
@@ -108,4 +108,9 @@ describe("testing helper.extract(args)", () => {
   });
 });
 
-describe("testing helper.validate(vals, e)", () => {});
+describe("testing helper.bindHelper(data, vals, event) and helper.unbindHelper(data, vals, event)", function () {
+  var data;
+  before(function () {
+    data = helper.initBind(); // eslint-disable-line
+  });
+});
