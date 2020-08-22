@@ -63,4 +63,6 @@ Webpack as our build system.
 
 Babel for Javascript wrangling.
 
+Mocha for unit tests.
+
 ESLint and Prettier for code formatting.
