@@ -10,15 +10,16 @@ Input.js is not yet available on npm.  To download or use, fork this repo on Git
 
 To see it in action, fork this repo and run:
 
+    npm install # or yarn install, of course
     npm run build
 
 And dist/index.html will have some basic usage examples.  See src/index.js for the implementation.
 
-To see unit tests, go to src/test/Helpers.test.js.  Uses Mocha. run
+To see unit tests, go to src/test/Helpers.test.js.  Run
 
     npm test
 
-to vefiy that they work.
+to verify that they work.  Uses Mocha.
 
 ## usage
 
@@ -38,12 +39,13 @@ Input.js keeps track of the following state variables:
 
 And you can use the following functions to modify the key bindings:
 
-    input.bind([modifier, ]key[, callback]); // Takes any modifier + key combination and either adds a new callback to it, or returns existing callbacks.
+    input.bind([modifier, ]key[, callback]); // Takes any modifier + key combination 
+    // and either adds a new callback to it, or returns existing callbacks.
     input.upbind([modifier, ]key[, callback]); // same for keyups.
     input.unbind([modifier, ]key); // unbinds the given key.
     input.unupbind([modifier, ]key); // you can guess what this does.
 
-Supported modifier keys are Alt, Control, Meta, and Shift.  You can also use mouseleft, mousemiddle, mouseright, and mousemove as a key to bind mouse events!
+Supported modifier keys are Alt, Control, Meta, and Shift.  You can also use mouseleft, mousemiddle, mouseright, and mousemove as keys to bind mouse events!
 
 ## A note on Shift and Capslock
 
