@@ -45,7 +45,6 @@ text2.innerHTML = "Me too!";
 // this way, space can toggle whether it's active.
 var active = false;
 input.bind(" ", function () {
-  console.log("haha yes");
   if (!active) {
     input.bind("mousemove", function () {
       mousemove.innerHTML = `Your current mouse position: ${input.x}, ${input.y}`;
