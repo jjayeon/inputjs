@@ -93,9 +93,19 @@ module.exports = {
       );
     }
 
+    // check which way we're binding.
+    var binds;
+    if (event === "down") {
+      binds = data.binds;
+    } else if (event === "up") {
+      binds = data.upbinds;
+    }
+    // this function will brick entirely if called with anything besides "up" or "down".
+    // which is by design.
+
     // initialize any keys that don't exist.
-    if (!data.binds[vals.mod][vals.key]) {
-      data.binds[vals.mod][vals.key] = [];
+    if (!binds[vals.mod][vals.key]) {
+      binds[vals.mod][vals.key] = [];
     }
 
     // if bind was called with a function, do this.
@@ -116,18 +126,9 @@ module.exports = {
         type = "key" + event;
       }
 
-      // check which way we're binding.
-      var binds;
-      if (event === "down") {
-        binds = data.binds;
-      } else if (event === "up") {
-        binds = data.upbinds;
-      }
-      // this function will brick entirely if called with anything besides "up" or "down".
-      // which is by design.
-
       binds[vals.mod][vals.key].push(wrappedCallback);
       !dry && document.addEventListener(type, wrappedCallback);
+      console.log(binds);
 
       return true;
       // otherwise, return false, signalling to Input.js to return the callbacks.

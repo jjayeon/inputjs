@@ -45,6 +45,7 @@ text2.innerHTML = "Me too!";
 // this way, space can toggle whether it's active.
 var active = false;
 input.bind(" ", function () {
+  console.log("haha yes");
   if (!active) {
     input.bind("mousemove", function () {
       mousemove.innerHTML = `Your current mouse position: ${input.x}, ${input.y}`;
@@ -56,32 +57,32 @@ input.bind(" ", function () {
       rightclick.innerHTML = `Right clicked @ ${input.x}, ${input.y}`;
     });
 
-    input.bind("r", function () {
+    input.upbind("r", function () {
       RGB.style = "color:red;";
     });
-    input.bind("g", function () {
+    input.upbind("g", function () {
       RGB.style = "color:green;";
     });
-    input.bind("b", function () {
+    input.upbind("b", function () {
       RGB.style = "color:blue;";
     });
 
-    input.bind("Shift", "R", function () {
+    input.upbind("Shift", "R", function () {
       shift.style = "color:red;";
     });
 
-    input.bind("Shift", "G", function () {
+    input.upbind("Shift", "G", function () {
       shift.style = "color:green;";
     });
 
-    input.bind("Shift", "B", function () {
+    input.upbind("Shift", "B", function () {
       shift.style = "color:blue;";
     });
 
-    input.bind("n", function () {
+    input.upbind("n", function () {
       app.appendChild(text1);
     });
-    input.bind("n", function () {
+    input.upbind("n", function () {
       app.appendChild(text2);
     });
 
@@ -91,15 +92,15 @@ input.bind(" ", function () {
     input.unbind("mouseleft");
     input.unbind("mouseright");
 
-    input.unbind("r");
-    input.unbind("g");
-    input.unbind("b");
+    input.unupbind("r");
+    input.unupbind("g");
+    input.unupbind("b");
 
-    input.unbind("Shift", "R");
-    input.unbind("Shift", "G");
-    input.unbind("Shift", "B");
+    input.unupbind("Shift", "R");
+    input.unupbind("Shift", "G");
+    input.unupbind("Shift", "B");
 
-    input.unbind("n");
+    input.unupbind("n");
 
     input.contextmenu(true);
   }
