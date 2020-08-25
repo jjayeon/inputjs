@@ -84,6 +84,8 @@ input.bind(" ", function () {
     input.bind("n", function () {
       app.appendChild(text2);
     });
+
+    input.contextmenu(false);
   } else {
     input.unbind("mousemove");
     input.unbind("mouseleft");
@@ -98,6 +100,8 @@ input.bind(" ", function () {
     input.unbind("Shift", "B");
 
     input.unbind("n");
+
+    input.contextmenu(true);
   }
   active = !active;
 });

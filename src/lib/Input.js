@@ -21,6 +21,8 @@ export default (function () {
     // and the binds for Shift B are in data.binds["Shift"]["B"].
     binds: helper.initBinds(),
     upbinds: helper.initBinds(),
+    // some state flags
+    contextmenu: true,
   };
 
   // A note on Shift and CapsLock:
@@ -71,6 +73,18 @@ export default (function () {
       const vals = helper.extract(args);
       helper.unbindHelper(data, vals, "up");
       return this;
+    },
+
+    contextmenu: function (active) {
+      if (active) {
+        document.oncontextmenu = null;
+      } else {
+        document.oncontextmenu = function (e) {
+          e.preventDefault();
+          return false;
+        };
+      }
+      data.contextmenu = active;
     },
 
     // assorted getters for data.
