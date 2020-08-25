@@ -128,6 +128,7 @@ module.exports = {
 
       binds[vals.mod][vals.key].push(wrappedCallback);
       !dry && document.addEventListener(type, wrappedCallback);
+      console.log(binds);
 
       return true;
       // otherwise, return false, signalling to Input.js to return the callbacks.
