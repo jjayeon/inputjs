@@ -17,10 +17,10 @@
     "webpack-dev-server": "^3.11.0"
   },
   "dependencies": {},
-  "name": "input",
+  "name": "@jjy/input",
   "description": "An easy mouse-drawing app in browser.",
   "version": "1.0.0",
-  "main": "src/index.js",
+  "main": "src/lib/Input.js",
   "scripts": {
     "start": "webpack-dev-server --config webpack.config.js --mode development",
     "build": "webpack --config webpack.config.js --mode production",
@@ -31,13 +31,18 @@
     "url": "git+https://github.com/jjayeon/draw-with-me-solo.git"
   },
   "files": [
-    "./src/lib/Input.js",
-    "./src/lib/Helpers.js"
+    "src/lib/Input.js",
+    "src/lib/Helpers.js"
   ],
   "author": "jjayeon",
-  "license": "ISC",
+  "license": "LGPL-3.0-or-later",
   "bugs": {
     "url": "https://github.com/jjayeon/draw-with-me-solo/issues"
   },
-  "homepage": "https://github.com/jjayeon/draw-with-me-solo#readme"
+  "homepage": "https://github.com/jjayeon/draw-with-me-solo#readme",
+  "keywords": [
+    "input",
+    "keyboard",
+    "mouse"
+  ]
 }
