@@ -6,8 +6,6 @@ If you need a library for handling user input that's agnostic to your UI framewo
 
 ## installation/getting started
 
-Input.js is not yet available on npm.  To download or use, fork this repo on Github and copy the files src/lib/Input.js and src/lib/Helpers.js to wherever you need them.
-
 To see it in action, fork this repo and run:
 
     npm install # or yarn install, of course

@@ -28,7 +28,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jjayeon/draw-with-me-solo.git"
+    "url": "git+https://github.com/jjayeon/inputjs.git"
   },
   "files": [
     "src/lib/Input.js",
@@ -37,9 +37,9 @@
   "author": "jjayeon",
   "license": "LGPL-3.0-or-later",
   "bugs": {
-    "url": "https://github.com/jjayeon/draw-with-me-solo/issues"
+    "url": "https://github.com/jjayeon/inputjs/issues"
   },
-  "homepage": "https://github.com/jjayeon/draw-with-me-solo#readme",
+  "homepage": "https://github.com/jjayeon/inputjs#readme",
   "keywords": [
     "input",
     "keyboard",
