@@ -19,7 +19,7 @@
   "dependencies": {},
   "name": "@jjy/input",
   "description": "An easy mouse-drawing app in browser.",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "src/lib/Input.js",
   "scripts": {
     "start": "webpack-dev-server --config webpack.config.js --mode development",
