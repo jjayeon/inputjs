@@ -19,6 +19,10 @@ To see unit tests, go to src/test/Helpers.test.js.  Run
 
 to verify that they work.  Uses Mocha.
 
+To use this in a project, use `npm install @jjy/inputjs` to install, and include with the line:
+
+    import input from "@jjy/input";
+
 ## usage
 
 Input.js keeps track of the following state variables:
